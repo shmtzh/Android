@@ -8,4 +8,7 @@
     <string name="forgot">Forgot password</string>
     <string name="login">LOG IN</string>
     <string name="registration_caps">REGISTRATION</string>
+    <string name="call_support_descr">To use this app you need to have verified account. Call support for further information please.</string>
+    <string name="ok">Ok</string>
+    <string name="call_support">Call support</string>
 </resources>

@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:background="@drawable/borders_black"
+    tools:context=".dialog.RegistrationDialogFragment">
+
+    <TextView
+        android:id="@+id/registr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:text="@string/registration_caps"
+        android:textColor="@color/white"
+        android:textSize="26sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/descr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/registr"
+        android:layout_margin="4dp"
+        android:gravity="center"
+        android:text="@string/call_support_descr"
+        android:textColor="@color/white" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="2dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/descr">
+
+        <Button
+            android:id="@+id/ok"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="1"
+            android:background="@color/orange"
+            android:text="@string/ok"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/support"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="1"
+            android:background="@color/orange"
+            android:text="@string/call_support"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</RelativeLayout>

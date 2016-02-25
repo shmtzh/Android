@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.shmtzh.myapplication.R;
+import com.example.shmtzh.myapplication.fragment.LoginFragment;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -18,6 +19,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new LoginFragment())
+                .commit();
 
     }
 

@@ -3,9 +3,19 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryDark">@color/orange</item>
+        <item name="colorAccent">@color/orange</item>
+        <item name="android:colorAccent">@color/orange</item>
+        <item name="android:colorPrimary">@color/orange</item>
+        <item name="android:colorControlHighlight">@color/orange</item>
+        <item name="android:colorFocusedHighlight">@color/orange</item>
+        <item name="android:editTextColor">@color/orange</item>
+        <item name="colorControlNormal">@color/orange</item>
+        <item name="colorControlActivated">@color/orange</item>
+        <item name="colorControlHighlight">@color/orange</item>
+        <item name="android:navigationBarColor">@color/orange</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
