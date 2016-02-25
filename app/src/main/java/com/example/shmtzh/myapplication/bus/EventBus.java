@@ -1,6 +1,6 @@
 package com.example.shmtzh.myapplication.bus;
 
-import com.example.shmtzh.event.AbstractEvent;
+import com.example.shmtzh.myapplication.event.AbstractEvent;
 
 /**
  * Created by shmtzh on 2/25/16.

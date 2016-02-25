@@ -3,7 +3,7 @@ package com.example.shmtzh.myapplication.bus;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.example.shmtzh.event.AbstractEvent;
+import com.example.shmtzh.myapplication.event.AbstractEvent;
 import com.squareup.otto.Bus;
 
 /**

@@ -4,6 +4,11 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
 
+import com.example.shmtzh.myapplication.Z;
+import com.example.shmtzh.myapplication.activity.BaseActivity;
+import com.example.shmtzh.myapplication.rest.ZClient;
+import com.example.shmtzh.myapplication.bus.EventBus;
+
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
@@ -70,6 +75,8 @@ public class SplashService extends IntentService {
             }
         }
     }
+
+
 
     /**
      * Handle action Foo in the provided background thread with the provided

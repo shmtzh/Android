@@ -1,4 +1,4 @@
-package com.example.shmtzh.event;
+package com.example.shmtzh.myapplication.event;
 
 /**
  * Created by shmtzh on 2/25/16.

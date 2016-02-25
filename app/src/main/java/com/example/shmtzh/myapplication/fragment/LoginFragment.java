@@ -13,15 +13,18 @@ import android.widget.TextView;
 
 import com.example.shmtzh.myapplication.R;
 import com.example.shmtzh.myapplication.dialog.RegistrationDialogFragment;
+import com.example.shmtzh.myapplication.event.ReceivedSupportNumberEvent;
+import com.squareup.otto.Subscribe;
 
 
-public class LoginFragment extends Fragment implements View.OnClickListener {
+public class LoginFragment extends BaseFragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     TextView forgotTv;
     Button registrBtn;
+    String number;
 
 
     private OnFragmentInteractionListener mListener;
@@ -52,10 +55,27 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        getBus().unregister(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getBus().register(this);
+    }
+
+    @Subscribe
+    public void OnReceivedSupportNumber(ReceivedSupportNumberEvent event) {
+        number = event.getSupportNumber().getNumber();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.regist:
-                RegistrationDialogFragment dialog = new RegistrationDialogFragment();
+                RegistrationDialogFragment dialog = new RegistrationDialogFragment(number);
                 dialog.show(getFragmentManager(), "dialog");
         }
     }

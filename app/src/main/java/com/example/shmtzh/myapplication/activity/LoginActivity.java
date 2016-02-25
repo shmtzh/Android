@@ -1,5 +1,6 @@
 package com.example.shmtzh.myapplication.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,13 +12,20 @@ import android.view.MenuItem;
 
 import com.example.shmtzh.myapplication.R;
 import com.example.shmtzh.myapplication.fragment.LoginFragment;
+import com.example.shmtzh.myapplication.rest.ZClient;
+import com.example.shmtzh.myapplication.service.SplashService;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+//        Intent serviceIntent = new Intent(this, SplashService.class);
+//        startService(serviceIntent);
+        ZClient client = getRestClient();
+        client.getTheNumber();
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new LoginFragment())

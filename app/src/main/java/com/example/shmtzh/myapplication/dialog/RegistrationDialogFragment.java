@@ -1,5 +1,6 @@
 package com.example.shmtzh.myapplication.dialog;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -11,44 +12,22 @@ import android.widget.Button;
 
 import com.example.shmtzh.myapplication.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link RegistrationDialogFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link RegistrationDialogFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class RegistrationDialogFragment extends DialogFragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-Button regBtn, okBtn;
+    Button regBtn, okBtn;
+    String number = "";
 
     private OnFragmentInteractionListener mListener;
 
-    public RegistrationDialogFragment() {
+    public RegistrationDialogFragment(String number) {
+        this.number = "tel:" +number;
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RegistrationDialogFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RegistrationDialogFragment newInstance(String param1, String param2) {
-        RegistrationDialogFragment fragment = new RegistrationDialogFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,12 +50,18 @@ Button regBtn, okBtn;
         }
     }
 
+
     @Override
     public void onClick(View v) {
-        switch(v.getId())
-        {
-            case R.id.registr: break;
-            case R.id.ok: getDialog().dismiss(); break;
+        switch (v.getId()) {
+            case R.id.support:
+                Uri uri = Uri.parse(number);
+                Intent callIntent = new Intent(Intent.ACTION_DIAL, uri);
+                startActivity(callIntent);
+                break;
+            case R.id.ok:
+                getDialog().dismiss();
+                break;
         }
     }
 
