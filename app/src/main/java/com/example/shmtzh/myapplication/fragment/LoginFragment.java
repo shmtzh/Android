@@ -8,29 +8,31 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shmtzh.myapplication.R;
 import com.example.shmtzh.myapplication.dialog.RegistrationDialogFragment;
+import com.example.shmtzh.myapplication.event.ReceivedLoginEvent;
 import com.example.shmtzh.myapplication.event.ReceivedSupportNumberEvent;
+import com.example.shmtzh.myapplication.listener.FragmentInteraction;
+import com.example.shmtzh.myapplication.model.LoginCredentials;
+import com.example.shmtzh.myapplication.rest.ZClient;
 import com.squareup.otto.Subscribe;
 
 
 public class LoginFragment extends BaseFragment implements View.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     TextView forgotTv;
-    Button registrBtn;
+    Button registrBtn, loginBtn;
     String number;
-
-
-    private OnFragmentInteractionListener mListener;
+    FragmentInteraction mCommChListener;
+    LoginCredentials login = new LoginCredentials();
+    EditText pass, telephone;
 
     public LoginFragment() {
-        // Required empty public constructor
     }
 
 
@@ -42,16 +44,15 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
         forgotTv = (TextView) view.findViewById(R.id.forgot_pass);
         forgotTv.setPaintFlags(forgotTv.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        forgotTv.setOnClickListener(this);
         registrBtn = (Button) view.findViewById(R.id.regist);
         registrBtn.setOnClickListener(this);
+        loginBtn = (Button) view.findViewById(R.id.login);
+        loginBtn.setOnClickListener(this);
+        telephone = (EditText) view.findViewById(R.id.teleph_edit);
+        pass = (EditText) view.findViewById(R.id.pass_edit);
 
         return view;
-    }
-
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -66,39 +67,53 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         getBus().register(this);
     }
 
-    @Subscribe
-    public void OnReceivedSupportNumber(ReceivedSupportNumberEvent event) {
-        number = event.getSupportNumber().getNumber();
-    }
+
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.regist:
-                RegistrationDialogFragment dialog = new RegistrationDialogFragment(number);
+                RegistrationDialogFragment dialog = new RegistrationDialogFragment();
                 dialog.show(getFragmentManager(), "dialog");
+                break;
+            case R.id.forgot_pass:
+                changeFragment(1);
+                break;
+            case R.id.login:
+                collectDataFromEditText();
+                ZClient client = getRestClient();
+                client.login(login);
         }
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Subscribe
+    public void OnReceivedLoginEvent(ReceivedLoginEvent event)
+    {
+        changeFragment(2);
     }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof FragmentInteraction) {
+            mCommChListener = (FragmentInteraction) context;
+        } else {
+            throw new ClassCastException();
+        }
+    }
+
+    private void collectDataFromEditText() {
+        login.setPhone(telephone.getText().toString());
+        login.setPassword(pass.getText().toString());
+        login.setDeviceId("662aa2f9 6fc85d5d 0261b8ff 031c8d28 058871d7 f0eab02a e8a35c57 66091013");
+
+    }
+
+
+    public void changeFragment(int id) {
+        mCommChListener.changeFragment(id);
+    }
+
 }

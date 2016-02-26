@@ -8,46 +8,31 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 
 import com.example.shmtzh.myapplication.R;
-
+import com.example.shmtzh.myapplication.activity.LoginActivity;
 
 public class RegistrationDialogFragment extends DialogFragment implements View.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     Button regBtn, okBtn;
-    String number = "";
 
-    private OnFragmentInteractionListener mListener;
 
-    public RegistrationDialogFragment(String number) {
-        this.number = "tel:" +number;
-        // Required empty public constructor
+    public RegistrationDialogFragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.dialog_registration, container, false);
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         okBtn = (Button) view.findViewById(R.id.ok);
         regBtn = (Button) view.findViewById(R.id.support);
         okBtn.setOnClickListener(this);
         regBtn.setOnClickListener(this);
 
-
         return view;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
 
@@ -55,6 +40,7 @@ public class RegistrationDialogFragment extends DialogFragment implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.support:
+                String number = "tel:" + LoginActivity.getSupportNumber();
                 Uri uri = Uri.parse(number);
                 Intent callIntent = new Intent(Intent.ACTION_DIAL, uri);
                 startActivity(callIntent);
@@ -65,26 +51,5 @@ public class RegistrationDialogFragment extends DialogFragment implements View.O
         }
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
 
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }

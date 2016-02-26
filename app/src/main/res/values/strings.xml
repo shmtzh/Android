@@ -11,4 +11,8 @@
     <string name="call_support_descr">To use this app you need to have verified account. Call support for further information please.</string>
     <string name="ok">Ok</string>
     <string name="call_support">Call support</string>
+    <string name="recovery">PASSWORD RECOVERY</string>
+    <string name="to_recover">To recover your password, please call the office</string>
+    <string name="call_office">CALL THE OFFICE</string>
+    <string name="title_activity_feed">FeedActivity</string>
 </resources>

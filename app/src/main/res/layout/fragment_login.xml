@@ -39,7 +39,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginStart="40dp"
-        android:inputType="number"
+        android:inputType="phone"
         android:textColor="@color/white" />
 
 

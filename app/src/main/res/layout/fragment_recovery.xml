@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.shmtzh.myapplication.fragment.LoginFragment">
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/pass_recovery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/recovery"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+
+    <TextView
+        android:id="@+id/recover_descr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pass_recovery"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"
+        android:lines="2"
+        android:text="@string/to_recover"
+        android:textAlignment="center"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/call_office"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/recover_descr"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="100dp"
+        android:background="@color/orange"
+        android:text="@string/call_office"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+
+
+</RelativeLayout>
