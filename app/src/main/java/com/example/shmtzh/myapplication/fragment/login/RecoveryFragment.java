@@ -1,22 +1,17 @@
-package com.example.shmtzh.myapplication.fragment;
+package com.example.shmtzh.myapplication.fragment.login;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.shmtzh.myapplication.R;
 import com.example.shmtzh.myapplication.activity.LoginActivity;
-import com.example.shmtzh.myapplication.event.ReceivedLoginEvent;
-import com.example.shmtzh.myapplication.event.ReceivedSupportNumberEvent;
 import com.example.shmtzh.myapplication.listener.FragmentInteraction;
-import com.squareup.otto.Subscribe;
 
 
 public class RecoveryFragment extends BaseFragment implements View.OnClickListener {

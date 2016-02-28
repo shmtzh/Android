@@ -15,4 +15,7 @@
     <string name="to_recover">To recover your password, please call the office</string>
     <string name="call_office">CALL THE OFFICE</string>
     <string name="title_activity_feed">FeedActivity</string>
+    <string name="distance_to">Distance to the pickup location:</string>
+    <string name="distance_from">Distance from pickup to destination:</string>
+    <string name="comments">Comments:</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.shmtzh.myapplication.fragment;
+package com.example.shmtzh.myapplication.fragment.login;
 
 import android.support.v4.app.Fragment;
 

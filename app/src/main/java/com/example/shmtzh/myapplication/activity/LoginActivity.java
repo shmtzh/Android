@@ -9,8 +9,8 @@ import android.view.MenuItem;
 
 import com.example.shmtzh.myapplication.R;
 import com.example.shmtzh.myapplication.event.ReceivedSupportNumberEvent;
-import com.example.shmtzh.myapplication.fragment.LoginFragment;
-import com.example.shmtzh.myapplication.fragment.RecoveryFragment;
+import com.example.shmtzh.myapplication.fragment.login.LoginFragment;
+import com.example.shmtzh.myapplication.fragment.login.RecoveryFragment;
 import com.example.shmtzh.myapplication.listener.FragmentInteraction;
 import com.example.shmtzh.myapplication.rest.ZClient;
 import com.squareup.otto.Subscribe;
