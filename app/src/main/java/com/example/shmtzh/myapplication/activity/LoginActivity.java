@@ -1,9 +1,13 @@
 package com.example.shmtzh.myapplication.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,10 +17,12 @@ import com.example.shmtzh.myapplication.fragment.login.LoginFragment;
 import com.example.shmtzh.myapplication.fragment.login.RecoveryFragment;
 import com.example.shmtzh.myapplication.listener.FragmentInteraction;
 import com.example.shmtzh.myapplication.rest.ZClient;
+import com.google.gson.Gson;
 import com.squareup.otto.Subscribe;
 
 public class LoginActivity extends BaseActivity implements FragmentInteraction {
-   static String supportNumber;
+    private  final String TAG = getClass().getSimpleName();
+    static String supportNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +40,6 @@ public class LoginActivity extends BaseActivity implements FragmentInteraction {
     public static String getSupportNumber() {
         return supportNumber;
     }
-
 
 
     @Override
@@ -58,6 +63,7 @@ public class LoginActivity extends BaseActivity implements FragmentInteraction {
     @Subscribe
     public void OnReceivedSupportNumber(ReceivedSupportNumberEvent event) {
         supportNumber = event.getSupportNumber().getNumber();
+        setDefaults("support", supportNumber, this);
     }
 
     @Override
@@ -71,11 +77,11 @@ public class LoginActivity extends BaseActivity implements FragmentInteraction {
         return super.onOptionsItemSelected(item);
     }
 
-    public void goToNextFragment(Fragment fragment)
-    {
+    public void goToNextFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).replace(R.id.container, fragment).addToBackStack("").commit();
     }
+
 
     @Override
     public void changeFragment(int id) {
@@ -92,6 +98,12 @@ public class LoginActivity extends BaseActivity implements FragmentInteraction {
                 break;
             case 2:
                 Intent intent = new Intent(this, FeedActivity.class);
+                ZClient client = getRestClient();
+                String token = getDefaults("token", this);
+                Log.d(TAG, "onCreate for feed: " + token);
+                client.getFeedNew(token);
+                client.getFeedActive(token);
+                client.getFeedHistory(token);
                 startActivity(intent);
                 break;
         }

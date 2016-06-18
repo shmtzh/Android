@@ -1,8 +1,10 @@
 package com.example.shmtzh.myapplication.fragment.login;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.shmtzh.myapplication.R;
+import com.example.shmtzh.myapplication.activity.LoginActivity;
 import com.example.shmtzh.myapplication.dialog.RegistrationDialogFragment;
 import com.example.shmtzh.myapplication.event.ReceivedLoginEvent;
 import com.example.shmtzh.myapplication.listener.FragmentInteraction;
@@ -26,6 +29,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     FragmentInteraction mCommChListener;
     LoginCredentials login = new LoginCredentials();
     EditText pass, telephone;
+    SharedPreferences mPrefs;
 
     public LoginFragment() {
     }
@@ -36,7 +40,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-
+        mPrefs = getActivity().getPreferences(getActivity().MODE_PRIVATE);
         forgotTv = (TextView) view.findViewById(R.id.forgot_pass);
         forgotTv.setPaintFlags(forgotTv.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         forgotTv.setOnClickListener(this);
@@ -85,6 +89,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     @Subscribe
     public void OnReceivedLoginEvent(ReceivedLoginEvent event)
     {
+        LoginActivity.setDefaults("token", event.getLogin().getToken(), getActivity());
         changeFragment(2);
     }
 
@@ -103,7 +108,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         login.setPhone(telephone.getText().toString());
         login.setPassword(pass.getText().toString());
         login.setDeviceId("662aa2f9 6fc85d5d 0261b8ff 031c8d28 058871d7 f0eab02a e8a35c57 66091013");
-
     }
 
 

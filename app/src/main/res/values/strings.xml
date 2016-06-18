@@ -18,4 +18,22 @@
     <string name="distance_to">Distance to the pickup location:</string>
     <string name="distance_from">Distance from pickup to destination:</string>
     <string name="comments">Comments:</string>
+    <string name="pick_up_list">PICK UP LIST</string>
+    <string name="profile">PROFILE</string>
+    <string name="information">INFORMATION</string>
+    <string name="statistic">STATISTIC</string>
+    <string name="log_out">LOG OUT</string>
+    <string name="do_you_really_want_to_log_out">Do you really want to log out?</string>
+    <string name="cancel">CANCEL</string>
+    <string name="new_caps">NEW</string>
+    <string name="active_caps">ACTIVE</string>
+    <string name="history_caps">HISTORY</string>
+    <string name="day">DAY</string>
+    <string name="week">WEEK</string>
+    <string name="month">MONTH</string>
+    <string name="income">Income</string>
+    <string name="all_income">All income</string>
+    <string name="your_rating">Your rating</string>
+    <string name="deliveries">Deliveries</string>
+    <string name="all_deliveries">All deliveries</string>
 </resources>

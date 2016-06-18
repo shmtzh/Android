@@ -1,9 +1,22 @@
 package com.example.shmtzh.myapplication.rest;
 
+import android.util.Log;
+
+import com.example.shmtzh.myapplication.callback.AbstractCallback;
+import com.example.shmtzh.myapplication.callback.ActiveFeedCallback;
+import com.example.shmtzh.myapplication.callback.AllStatisticCallback;
+import com.example.shmtzh.myapplication.callback.DayStatisticCallback;
+import com.example.shmtzh.myapplication.callback.HistoryFeedCallback;
 import com.example.shmtzh.myapplication.callback.LoginCallback;
+import com.example.shmtzh.myapplication.callback.MonthStatisticCallback;
+import com.example.shmtzh.myapplication.callback.NewFeedCallback;
 import com.example.shmtzh.myapplication.callback.SupportNumberCallback;
+import com.example.shmtzh.myapplication.callback.WeekStatisticCallback;
+import com.example.shmtzh.myapplication.model.CompleteStatistic;
+import com.example.shmtzh.myapplication.model.FeedModel;
 import com.example.shmtzh.myapplication.model.LoginCredentials;
 import com.example.shmtzh.myapplication.model.LoginModel;
+import com.example.shmtzh.myapplication.model.RegularStatistic;
 import com.example.shmtzh.myapplication.model.SupportNumber;
 import com.example.shmtzh.myapplication.bus.EventBus;
 import com.google.gson.Gson;
@@ -27,11 +40,12 @@ import retrofit.RestAdapter;
 import retrofit.client.Client;
 import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
-import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
+import retrofit.http.Header;
 import retrofit.http.POST;
+import retrofit.http.Path;
 
 /**
  * Created by shmtzh on 2/25/16.
@@ -43,7 +57,7 @@ public class ZClient {
     private final EventBus mBus;
     private final ZClient.RestInterface restInterface;
     private static final String key = "87f8b91c254047d781b0c929f0bf150f";
-
+private final String TAG= getClass().getSimpleName();
 
     public static ZClient getRestWithCache(final EventBus bus, String cacheAbsolutePath,
                                            final RequestInterceptor interceptor, String apiUrl, boolean logActive) {
@@ -154,32 +168,106 @@ public class ZClient {
 
     public void getTheNumber() {
         SupportNumberCallback callback = new SupportNumberCallback(mBus);
-        restInterface.getTheNumber(callback);}
+        restInterface.getTheNumber(callback);
+    }
 
     public void login(LoginCredentials login) {
         LoginCallback callback = new LoginCallback(mBus);
         restInterface.login(login.getPhone(), login.getPassword(), login.getDeviceId(), callback);
-}
+    }
 
+    public void getFeedNew(String token) {
+        NewFeedCallback callback = new NewFeedCallback(mBus);
+        restInterface.getFeedNew(1, 50, token, callback);
+    }
 
-public interface RestInterface {
+    public void getFeedActive(String token) {
+        ActiveFeedCallback callback = new ActiveFeedCallback(mBus);
+        restInterface.getFeedActive(1, 50, token, callback);
+    }
 
-    @GET("/support")
-    void getTheNumber(
-            Callback<SupportNumber> callback);
+    public void getFeedHistory(String token) {
+        HistoryFeedCallback callback = new HistoryFeedCallback(mBus);
+        Log.d("test", "getHistory: " + token);
+        restInterface.getFeedHistory(1, 50, token, callback);
+    }
 
-    @FormUrlEncoded
-    @POST("/login")
-    void login(
-            @Field("phone") String phone,
-            @Field("password") String password,
-            @Field("device_id") String id,
-            Callback<LoginModel> callback
-    );
+    public void getStatistic(String token, String period) {
+        AbstractCallback callback = null;
+        Log.d("test", "getStatistic: " + token);
+        switch (period) {
+            case "day":
+                callback = new DayStatisticCallback(mBus);
+                Log.d(TAG, "callbackZ - day");
+                break;
+            case "week":
+                callback = new WeekStatisticCallback(mBus);
+                Log.d(TAG, "callbackZ - week");
+                break;
+            case "month":
+                callback = new MonthStatisticCallback(mBus);
+                Log.d(TAG, "callbackZ - month");
+                break;
+        }
+        restInterface.getStatistic(period, token, callback);
+    }
 
+    public void getCompleteStatistic(String token) {
+        AllStatisticCallback callback = new AllStatisticCallback(mBus);
+        restInterface.getAllStatistic(token, callback);
+    }
 
+    public interface RestInterface {
 
+        @GET("/support")
+        void getTheNumber(
+                Callback<SupportNumber> callback);
 
-}
+        @FormUrlEncoded
+        @POST("/login")
+        void login(
+                @Field("phone") String phone,
+                @Field("password") String password,
+                @Field("device_id") String id,
+                Callback<LoginModel> callback
+        );
+
+        @GET("/orders/new/{page}/{limit}")
+        void getFeedNew(
+                @Path("page") int page,
+                @Path("limit") int limit,
+                @Header("token") String token,
+                Callback<FeedModel> callback
+        );
+
+        @GET("/orders/active/{page}/{limit}")
+        void getFeedActive(
+                @Path("page") int page,
+                @Path("limit") int limit,
+                @Header("token") String token,
+                Callback<FeedModel> callback
+        );
+
+        @GET("/orders/history/{page}/{limit}")
+        void getFeedHistory(
+                @Path("page") int page,
+                @Path("limit") int limit,
+                @Header("token") String token,
+                Callback<FeedModel> callback
+        );
+
+        @GET("/statistic/{period}")
+        void getStatistic(
+                @Path("period") String period,
+                @Header("token") String token,
+                Callback<RegularStatistic> callback
+        );
+
+        @GET("/statistic/all")
+        void getAllStatistic(
+                @Header("token") String token,
+                Callback<CompleteStatistic> callback
+        );
+    }
 
 }
